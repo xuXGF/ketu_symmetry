@@ -4,18 +4,32 @@ mask_result/*/*
 masks/*/*
 pics/*
 
+!data/*/.getkeep
+!img/*/.getkeep
+!mask_result/*/.getkeep
+!masks/*/.getkeep
+!pics/.getkeep
+
 pytorch-UNet/result/*
 pytorch-UNet/params/*
 pytorch-UNet/train_image/*
 pytorch-UNet/data/*/*
 
+!pytorch-UNet/result/.getkeep
+!pytorch-UNet/params/.getkeep
+!pytorch-UNet/train_image/.getkeep
+!pytorch-UNet/data/*/.getkeep
+
 U2-Netp-main/results/*
 U2-Netp-main/saved_models/u2netp/*
+
+!U2-Netp-main/results/.getkeep
+!U2-Netp-main/saved_models/u2netp/.getkeep
 
 panorama6.xls
 
 __pycache__
 .idea
 
-!.getkeep
+#!.getkeep
 
