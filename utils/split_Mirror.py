@@ -1,4 +1,5 @@
 import cv2
+from matplotlib import pyplot as plt
 
 
 def split_image_horizontally(img):
@@ -17,6 +18,19 @@ def split_image_horizontally(img):
 
     #对图片进行镜像翻转
     upper_half = cv2.flip(upper_half, 1)
+
+    # plt.figure(figsize=(10, 5))
+    # plt.subplot(1, 2, 1)
+    # plt.title('Upper Half')
+    # plt.imshow(cv2.cvtColor(upper_half, cv2.COLOR_BGR2RGB))
+    # plt.axis('off')
+    #
+    # plt.subplot(1, 2, 2)
+    # plt.title('Lower Half')
+    # plt.imshow(cv2.cvtColor(lower_half, cv2.COLOR_BGR2RGB))
+    # plt.axis('off')
+    #
+    # plt.show()
 
     return upper_half, lower_half
 

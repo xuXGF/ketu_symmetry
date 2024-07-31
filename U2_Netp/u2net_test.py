@@ -25,7 +25,6 @@ from model import U2NETP # small version u2net 4.7 MB
 def normPRED(d):
     ma = torch.max(d)
     mi = torch.min(d)
-
     dn = (d-mi)/(ma-mi)
 
     return dn
@@ -57,7 +56,7 @@ def main():
     model_dir='u2netp.pth'# fixed as u2netp
     img_name_list = glob.glob("results/222.jpeg")
 
-    model_dir='saved_models/u2netp/u2netp_bce_itr_13600_train_0.020884_tar_0.000024.pth'
+    model_dir='saved_models/u2netp/u2netp_bce_itr_16500_train_0.019957_tar_0.000009.pth'
     img_name_list = glob.glob("../data/imgs/*.jpg")
 
     print(img_name_list)
