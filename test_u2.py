@@ -74,7 +74,7 @@ for img_path in img_list:
     A = cv2.resize(out, (img_shape[1], img_shape[0]), interpolation=cv2.INTER_NEAREST)
     A = (A > 0.5).astype(float)*255
     A=Select_largest_contour(A)
-    # cv2.imwrite('1.png', A)
+    cv2.imwrite('1.png', A)
 
     # cv2.imshow('out',np.uint8(A[:img_shape[0],:]))
     # cv2.waitKey(0)

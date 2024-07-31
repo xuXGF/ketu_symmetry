@@ -50,18 +50,18 @@ def calculate_iou_center_aligned(mask1, mask2, label_value=255):
     mask2_binary = (canvas2 == label_value).astype(np.uint8)
 
 
-
-    plt.figure(figsize=(10, 5))
-    plt.subplot(1, 2, 1)
-    plt.title('Upper Half')
-    plt.imshow(cv2.cvtColor(mask1_binary*255, cv2.COLOR_BGR2RGB))
-    plt.axis('off')
-
-    plt.subplot(1, 2, 2)
-    plt.title('Lower Half')
-    plt.imshow(cv2.cvtColor(mask2_binary*255, cv2.COLOR_BGR2RGB))
-    plt.axis('off')
-    plt.show()
+    #
+    # plt.figure(figsize=(10, 5))
+    # plt.subplot(1, 2, 1)
+    # plt.title('Upper Half')
+    # plt.imshow(cv2.cvtColor(mask1_binary*255, cv2.COLOR_BGR2RGB))
+    # plt.axis('off')
+    #
+    # plt.subplot(1, 2, 2)
+    # plt.title('Lower Half')
+    # plt.imshow(cv2.cvtColor(mask2_binary*255, cv2.COLOR_BGR2RGB))
+    # plt.axis('off')
+    # plt.show()
     # 计算交集
     intersection = np.logical_and(mask1_binary, mask2_binary).astype(np.uint8)
 
