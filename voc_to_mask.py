@@ -37,12 +37,14 @@ def voc_json_to_mask(json_path, image_shape):
 #
 # cv2.imwrite(json_path.replace(".json","_mask.png"),mask*255)
 
-json_list=glob.glob("pytorch-UNet/data/image/*.json")
+# json_list=glob.glob("pytorch-UNet/data/image/*.json")
+# json_list=glob.glob("img/*/*.json")
+json_list=glob.glob("data/imgs/*.json")
 for json_path in json_list:
-    img = cv2.imread(json_path.replace("json", "jpg"))
+    img = cv2.imread(json_path.replace(".json", ".jpg"))
     image_shape = img.shape[:2]
     mask = voc_json_to_mask(json_path, image_shape)
-    cv2.imwrite(json_path.replace(".json", ".png").replace("image","labels"), mask * 255)
+    cv2.imwrite(json_path.replace(".json", ".png").replace("imgs","masks"), mask * 255)
 
 
 

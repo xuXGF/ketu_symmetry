@@ -3,7 +3,7 @@
 import torch
 import cv2
 import numpy as np
-from skimage import io, transform, color
+from skimage import transform
 
 from utils.iou import *
 from utils.Select_largest_contour import Select_largest_contour

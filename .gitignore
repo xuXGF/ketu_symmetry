@@ -15,6 +15,7 @@ U2_Netp/saved_models/u2netp/*
 panorama6.xls
 *.json
 *.png
+*.jpg
 #*.pth
 
 __pycache__
