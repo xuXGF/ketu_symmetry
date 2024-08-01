@@ -17,7 +17,7 @@ from torch.autograd import Variable
 
 from U2_Netp import U2NETP # small version u2net 4.7 MB
 
-model_dir='U2_Netp/saved_models/u2netp/u2netp_bce_itr_16500_train_0.019957_tar_0.000009.pth'
+model_dir='U2_Netp/saved_models/u2netp/u2netp_bce_itr_18700_train_0.019434_tar_0.000004.pth'
 net = U2NETP(3,1)
 # if torch.cuda.is_available():
 #     net.load_state_dict(torch.load(model_dir))
@@ -34,8 +34,10 @@ y,n=0,0
 
 
 # img_list=glob.glob("img/*/*.jpg")
-img_list=['data/imgs/1.jpg']
+# img_list=glob.glob('data/imgs/1.jpg')
+img_list=glob.glob("pics_no_yes/no/*.jpg")
 for img_path in img_list:
+    print(img_path)
     img=cv2.imread(img_path)
     output_size=320
     image = transform.resize(img, (output_size, output_size), mode='constant')

@@ -1,24 +1,20 @@
 import os
-from skimage import io, transform
+from skimage import io
 import torch
-import torchvision
+
 from torch.autograd import Variable
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
+
+from torch.utils.data import  DataLoader
 from torchvision import transforms#, utils
-# import torch.optim as optim
 
 import numpy as np
 from PIL import Image
 import glob
 
 from data_loader import RescaleT
-from data_loader import ToTensor
 from data_loader import ToTensorLab
 from data_loader import SalObjDataset
 
-from model import U2NET # full size version 173.6 MB
 from model import U2NETP # small version u2net 4.7 MB
 
 # normalize the predicted SOD probability map
@@ -54,10 +50,10 @@ def main():
 
     # --------- 1. get image path and name ---------
     model_dir='u2netp.pth'# fixed as u2netp
-    img_name_list = glob.glob("results/222.jpeg")
+    img_name_list = glob.glob("/home/boer/xugeofei-project/ketu_symmetry/pics_no_yes/yes/yes_24.jpg")
 
-    model_dir='saved_models/u2netp/u2netp_bce_itr_16500_train_0.019957_tar_0.000009.pth'
-    img_name_list = glob.glob("../data/imgs/*.jpg")
+    model_dir = 'saved_models/u2netp/u2netp_bce_itr_18700_train_0.019434_tar_0.000004.pth'
+    # img_name_list = glob.glob("../data/imgs/*.jpg")
 
     print(img_name_list)
 
