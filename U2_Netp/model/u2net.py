@@ -525,4 +525,11 @@ class U2NETP(nn.Module):
 
         return torch.sigmoid(d0), torch.sigmoid(d1), torch.sigmoid(d2), torch.sigmoid(d3), torch.sigmoid(d4), torch.sigmoid(d5), torch.sigmoid(d6)
 
+if __name__ == '__main__':
+
+    from torchsummary import summary
+    x=torch.randn(1,3,320,320)
+    model=U2NETP(3,1)
+    summary(model, input_size=(3, 320, 320),device='cpu')
+    print(model)
 

@@ -32,7 +32,7 @@ from utils.split_Mirror import split_image_horizontally
 yes_list = []
 no_list = []
 y,n=0,0
-mask_list=glob.glob("mask_result/*/*.png")
+mask_list=glob.glob("masks/*/*.png")
 for image_path in mask_list:
     print(image_path)
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
@@ -80,35 +80,49 @@ for image_path in mask_list:
     #             end3 - start3))
     # print('p_dist is ' + '%d' % p_dist + ', similarity is ' + '%f' % (1 - p_dist * 1.0 / 64) + ', time is ' + '%f' % (
     #             end2 - start2))
-    print('%f' % (1 - p_dist * 1.0 / 64))
-    a=1 - p_dist * 1.0 / 64
+    # print('%f' % (1 - p_dist * 1.0 / 64))
+    # a=1 - p_dist * 1.0 / 64
     # print('d_dist is ' + '%d' % d_dist + ', similarity is ' + '%f' % (1 - d_dist * 1.0 / 64) + ', time is ' + '%f' % (
     #             end1 - start1))
 
 
-    similarity_index=calculate_iou_center_aligned(upper_result_image,lower_result_image)
-    # print(similarity_index)
+    similarity_iou=calculate_iou_center_aligned(upper_result_image,lower_result_image)
+    print(similarity_iou)
     # similarity_index=calculate_ssim_center_aligned(upper_result_image,lower_result_image)
 
     # print(similarity_index)
-    # similarity_index=calculate_structure_center_aligned(upper_result_image,lower_result_image)
-    # print(similarity_index)
+    similarity_index=calculate_structure_center_aligned(upper_result_image,lower_result_image)
+    print(similarity_index)
+
+    similarity_matchShapes = calculate_matchShapes(upper_result_image, lower_result_image)
+
     # print(f"The similarity index between the mirror images is: {similarity_index:.4f}")
     a = similarity_index
-    x = 0.8 #0.996 ssim
-    # x = 0.9995
+    # a = similarity_index *0.7 + similarity_iou*0.3
+    # a = (1-similarity_matchShapes)*0.5+similarity_index*0.5
+    print(a)
+    # x = 0.8 #0.996 ssim
+    x = 0.86
+    x = 0.9995
+    # x=0.85
+
     if "yes" in image_path:
         yes_list.append(a)
         if a > x:
+            print("true")
             y += 1
         else:
             n += 1
+            print("false")
     elif "no" in image_path:
         no_list.append(a)
         if a < x:
             y += 1
+            print("true")
         else:
             n += 1
+            print("false")
+
 
 print('yes', yes_list)
 print('no', no_list)

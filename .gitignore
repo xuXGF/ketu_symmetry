@@ -16,8 +16,8 @@ panorama6.xls
 *.json
 *.png
 *.jpg
-#*.pth
-
+*.pth
+*.txt
 __pycache__
 .idea
 

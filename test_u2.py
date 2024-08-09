@@ -34,10 +34,11 @@ y,n=0,0
 
 
 # img_list=glob.glob("img/*/*.jpg")
-# img_list=glob.glob('data/imgs/1.jpg')
-img_list=glob.glob("pics_no_yes/no/*.jpg")
+img_list=glob.glob('data/imgs/1.jpg')
+# img_list=glob.glob("pics_no_yes/no/*.jpg")
 for img_path in img_list:
     print(img_path)
+    img_path = '/home/boer/xugeofei-project/ketu_symmetry/pics/baie_10.jpg'
     img=cv2.imread(img_path)
     output_size=320
     image = transform.resize(img, (output_size, output_size), mode='constant')

@@ -25,7 +25,7 @@ else:
 
 
 img_list=glob.glob("data/JPEGImages/*.jpg")
-# img_list=["/home/boer/xugeofei-project/ketu_symmetry/pics/baie_10.jpg"]
+img_list=["/home/boer/xugeofei-project/ketu_symmetry/pics/baie_10.jpg"]
 for img_path in img_list:
     img = keep_image_size_open_rgb(img_path, size=(512, 512))
     img_data=transform(img).cuda()
@@ -36,8 +36,8 @@ for img_path in img_list:
     out=net(img_data)
     out=torch.argmax(out[0], dim=0).unsqueeze(0) * 255
     out=(out).permute((1,2,0)).cpu().detach().numpy()
-    cv2.imshow('out',np.uint8(out))
-    cv2.waitKey(0)
+    # cv2.imshow('out',np.uint8(out))
+    # cv2.waitKey(0)
 
 
     img_shape = cv2.imread(img_path).shape

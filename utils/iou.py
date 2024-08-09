@@ -170,8 +170,115 @@ def calculate_structure_center_aligned(mask1, mask2, label_value=255):
 
     # 稳定常数
     C3 = (0.03 * 255) ** 2 / 2
+    # C3 = 0.015
 
     # 计算结构相似性
     structure_similarity = (sigma12 + C3) / (sigma1 * sigma2 + C3)
 
     return structure_similarity
+
+
+def calculate_matchShapes(mask1, mask2, label_value=255):
+
+    # 获取两张图片的大小
+    h1, w1 = mask1.shape[:2]
+    h2, w2 = mask2.shape[:2]
+
+    # 计算中点
+    center1 = (w1 // 2, h1 // 2)
+    center2 = (w2 // 2, h2 // 2)
+
+    # 创建空白画布，大小为两张图片尺寸之和
+    canvas_height = max(h1, h2) * 2
+    canvas_width = max(w1, w2) * 2
+    canvas1 = np.zeros((canvas_height, canvas_width), dtype=np.uint8)
+    canvas2 = np.zeros((canvas_height, canvas_width), dtype=np.uint8)
+
+    # 计算放置位置的偏移量
+    offset1_x = (canvas_width // 2) - center1[0]
+    offset1_y = (canvas_height // 2) - center1[1]
+    offset2_x = (canvas_width // 2) - center2[0]
+    offset2_y = (canvas_height // 2) - center2[1]
+
+    # 在画布上放置第一张掩码图像
+    canvas1[offset1_y:offset1_y + h1, offset1_x:offset1_x + w1] = mask1
+
+    # 在画布上放置第二张掩码图像
+    canvas2[offset2_y:offset2_y + h2, offset2_x:offset2_x + w2] = mask2
+
+    # 将掩码图像转换为二值图像
+    mask1 = (canvas1 == label_value).astype(np.uint8)
+    mask2 = (canvas2 == label_value).astype(np.uint8)
+
+    # contours1, hierarchy = cv2.findContours(mask1, 3, 2)
+    # contours2, hierarchy = cv2.findContours(mask2, 3, 2)
+    contours1, _ = cv2.findContours(np.uint8(mask1), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours2, _ = cv2.findContours(np.uint8(mask2), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    structure_similarity=cv2.matchShapes(contours1[0], contours2[0], 1, 0.0)
+
+
+    return structure_similarity
+
+
+
+
+
+
+def calculate_iou_center_aligned(mask1, mask2, label_value=255):
+
+    # 获取两张图片的大小
+    h1, w1 = mask1.shape[:2]
+    h2, w2 = mask2.shape[:2]
+
+
+
+    # 计算中点
+    center1 = (w1 // 2, h1 // 2)
+    center2 = (w2 // 2, h2 // 2)
+
+    # 创建空白画布，大小为两张图片尺寸之和
+    canvas_height = max(h1, h2) * 2
+    canvas_width = max(w1, w2) * 2
+    canvas1 = np.zeros((canvas_height, canvas_width), dtype=np.uint8)
+    canvas2 = np.zeros((canvas_height, canvas_width), dtype=np.uint8)
+
+    # 计算放置位置的偏移量
+    offset1_x = (canvas_width // 2) - center1[0]
+    offset1_y = (canvas_height // 2) - center1[1]
+    offset2_x = (canvas_width // 2) - center2[0]
+    offset2_y = (canvas_height // 2) - center2[1]
+
+    # 在画布上放置第一张掩码图像
+    canvas1[offset1_y:offset1_y + h1, offset1_x:offset1_x + w1] = mask1
+
+    # 在画布上放置第二张掩码图像
+    canvas2[offset2_y:offset2_y + h2, offset2_x:offset2_x + w2] = mask2
+
+    # 将掩码图像转换为二值图像
+    mask1_binary = (canvas1 == label_value).astype(np.uint8)
+    mask2_binary = (canvas2 == label_value).astype(np.uint8)
+
+
+    #
+    # plt.figure(figsize=(10, 5))
+    # plt.subplot(1, 2, 1)
+    # plt.title('Upper Half')
+    # plt.imshow(cv2.cvtColor(mask1_binary*255, cv2.COLOR_BGR2RGB))
+    # plt.axis('off')
+    #
+    # plt.subplot(1, 2, 2)
+    # plt.title('Lower Half')
+    # plt.imshow(cv2.cvtColor(mask2_binary*255, cv2.COLOR_BGR2RGB))
+    # plt.axis('off')
+    # plt.show()
+    # 计算交集
+    intersection = np.logical_and(mask1_binary, mask2_binary).astype(np.uint8)
+
+    # 计算并集
+    union = np.logical_or(mask1_binary, mask2_binary).astype(np.uint8)
+
+    # 计算IoU
+    iou = np.sum(intersection) / np.sum(union)
+
+    return iou
+
